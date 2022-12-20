@@ -83,8 +83,10 @@ public class BuildView extends JFrame implements ActionListener{
 	   if(e.getSource()==buildButton) {
 		   try{
 			   char[][] data = new char[size][size];
-			   for(int k=0, i=0, j=0; k<size*size && i<size; k++,j++) {
-				   data[i][j] = gridCells[k].getText().charAt(0);
+			   for(int k=0, i=0, j=0; k<size*size; k++) {
+				   //data[i][j] = gridCells[k].getText().charAt(0);
+				   j++;
+				   System.out.println(gridCells[k].getText().charAt(0));
 				   if(j==size-1) {
 					   j=0;
 					   i++;
