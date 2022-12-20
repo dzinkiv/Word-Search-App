@@ -35,6 +35,10 @@ public class BuildView extends JFrame implements ActionListener{
 
 
 	   setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	   //setTitle("Word Search Solver (WSS)");
+	   //setLayout(null);
+	   //setSize(700,700);
+	   //setVisible(true);
 
 	   // Set up display panel
 	   panelDisplay = new Panel(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -64,12 +68,13 @@ public class BuildView extends JFrame implements ActionListener{
 			   setVisible(true);
 			   
 			   grid = new Panel(new GridLayout(size, size));
-			   gridCells = new JTextField[size*size];
 			   
+
+			   gridCells = new JTextField[size*size];
 			   for(int i=0; i<(size*size); i++) {
 				   gridCells[i] = new JTextField();
 				   gridCells[i].setHorizontalAlignment(JTextField.CENTER);
-				   grid.add(gridCells[i]);
+				   grid.add(gridCells[i]);  // The Panel adds this Button
 			   }
 
 			   add(grid, BorderLayout.CENTER);
@@ -80,23 +85,33 @@ public class BuildView extends JFrame implements ActionListener{
 			  //ex.printStackTrace();
 		   }
 	   }
-	   if(e.getSource()==buildButton) {
-		   try{
-			   new SearchView();
-			   
-			   char[][] data = new char[size][size];
-			   for(int k=0, i=0, j=0; k<size*size; k++) {
-				   data[i][j] = gridCells[k].getText().charAt(0);
-				   i++;
-				   j++;
-				   if(j==size) {
-					   j=0;
-					   i
-				   }
-			   }
-		   }
-		   catch (NumberFormatException ex){
-		   }
-	   }
    }
+   
+
+//   @Override
+//   public void actionPerformed(ActionEvent e) {
+//	   if(e.getSource()==setButton) {
+//		   try{
+//			   size = Integer.parseInt(tfInput.getText());
+//			   System.out.println("Created table");
+//			   grid = new Panel(new GridLayout(size, size));
+//
+//			   // Set up button panel
+//			   gridCells = new JTextField[size*size];  // Construct an array of 10 numeric Buttons
+//			   for(int i=0; i<(size*size);i++) {
+//				   gridCells[1] = new JTextField();  // Construct Button "1"
+//				   grid.add(gridCells[1]);  // The Panel adds this Button
+//			   }
+//
+//			   add(grid, BorderLayout.CENTER);
+//		   }
+//		   catch (NumberFormatException ex){
+//			   ex.printStackTrace();
+//		   }
+//	   }
+//   }
+   
+   
+   
+   
 }
