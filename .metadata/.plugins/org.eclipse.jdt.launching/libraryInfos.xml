@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<libraryInfos>
+    <libraryInfo home="/Applications/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.macosx.x86_64_15.0.1.v20201027-0507" version="15.0.1"/>
+    <libraryInfo home="/Applications/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.macosx.x86_64_15.0.1.v20201027-0507/jre" version="15.0.1"/>
+    <libraryInfo home="/Users/david_zinkiv/Library/Java/JavaVirtualMachines/azul-13.0.10/Contents/Home" version="13.0.10"/>
+    <libraryInfo home="/Users/david_zinkiv/Library/Java/JavaVirtualMachines/adopt-openj9-14.0.2/Contents/Home" version="14.0.2"/>
+</libraryInfos>

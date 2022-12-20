@@ -1,0 +1,25 @@
+package wordsearch;
+
+import java.util.PriorityQueue;
+
+public class WordFind {
+	private String[][] matrix;
+	private int size;
+	private PriorityQueue<Vector> vArr;
+	
+	public WordFind(int n) {
+		this.size = n;
+		this.matrix = new String[this.size][this.size];
+		
+		this.vArr = new PriorityQueue<>();
+		
+		this.vArr.add(new Vector(0,1));
+		this.vArr.add(new Vector(1,1));
+		this.vArr.add(new Vector(1,0));
+		this.vArr.add(new Vector(1,-1));
+		this.vArr.add(new Vector(0,-1));
+		this.vArr.add(new Vector(-1,-1));
+		this.vArr.add(new Vector(-1,0));
+		this.vArr.add(new Vector(-1,1));
+	}
+}
