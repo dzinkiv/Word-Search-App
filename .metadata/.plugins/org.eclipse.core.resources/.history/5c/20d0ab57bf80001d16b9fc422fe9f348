@@ -18,7 +18,6 @@ public class BuildView extends JFrame implements ActionListener{
    private int size;
    private Panel panelDisplay, grid, searchDisplay;
    private WordFind w;
-   private char[][] data;
  
    // Constructor to setup GUI components and event handlers
    public BuildView () {
@@ -53,8 +52,8 @@ public class BuildView extends JFrame implements ActionListener{
 	   
 	   searchDisplay = new Panel(new FlowLayout());
 	   searchDisplay.add(text2);
-	   searchDisplay.add(wordInput);
-	   searchDisplay.add(searchButton);
+	   searchDisplay.add(intInput);
+	   searchDisplay.add(setButton);
 	   setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	   setLayout(new BorderLayout());  // "super" Frame sets to BorderLayout
@@ -98,16 +97,14 @@ public class BuildView extends JFrame implements ActionListener{
 	   }
 	   if(e.getSource()==buildButton) {
 		   try{
-			   data = new char[size][size];
-			   for(int k=0, i=0, j=0; k<size*size && i<size; k++, j++) {
+			   char[][] data = new char[size][size];
+			   for(int k=0, i=0, j=0; k<size*size && i<size; k++,j++) {
 				   data[i][j] = gridCells[k].getText().charAt(0);
 				   if(j==size-1) {
-					   j=-1;
+					   j=0;
 					   i++;
 				   }
 			   }
-			   setSize(new Dimension(size*50, size*90));
-			   setVisible(true);
 			   add(searchDisplay, BorderLayout.SOUTH);
 			   w = new WordFind(data, size);
 			   new SearchView(data);
@@ -115,12 +112,12 @@ public class BuildView extends JFrame implements ActionListener{
 		   catch (NumberFormatException ex){
 		   }
 	   }
-	   if(e.getSource()==searchButton) {
-		   try{
-			   w.search(wordInput.getText());
-		   }
-		   catch (NumberFormatException ex){
-		   }
-	   }
+//	   if(e.getSource()==searchButton) {
+//		   try{
+//			   w.search(wordInput.getText());
+//		   }
+//		   catch (NumberFormatException ex){
+//		   }
+//	   }
    }
 }

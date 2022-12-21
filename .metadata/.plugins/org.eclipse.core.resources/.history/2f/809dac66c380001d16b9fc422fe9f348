@@ -88,7 +88,7 @@ public class BuildView extends JFrame implements ActionListener{
 			   }
 
 			   add(grid, BorderLayout.CENTER);
-			   add(buildButton, BorderLayout.SOUTH); //
+			   add(buildButton, BorderLayout.CENTER); //
 			   
 		   }
 		   catch (NumberFormatException ex){
