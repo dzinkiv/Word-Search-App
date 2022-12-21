@@ -43,11 +43,12 @@ public class WordFind {
 						x = vectors.next().getX();
 						y = vectors.next().getY();
 						for(int k=1; k<word.length(); k++) {
-							if(vec_i+x<n && vec_i+x>=0 && vec_j+y<n && vec_j+y>=0 
+							if(vec_i+x<n && vec_i+x>0 && vec_j+y<n && vec_j+y>0 
 									&& word.charAt(k)==matrix[vec_i+=x][vec_j+=y]) 
 								check++;
+							System.out.println("check is: "+check+" wd len: "+word.length());
 						}
-						if(check==word.length()) System.out.println("found! vector:(" + x + "," + y + "); ends at " + vec_i + "," + vec_i + ")");
+						if(check==word.length()) System.out.println("found! vector:(" + vec_i + "," + vec_i + "); ends at ");
 					}
 				}
 			}

@@ -6,11 +6,21 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="vArr"/>
+		<item key="selection" value="intInput"/>
 		<list key="findhistory">
+			<item value="tfInput"/>
+			<item value="solveButton"/>
+			<item value="createButton"/>
+			<item value="JTextField"/>
+			<item value="TextField"/>
 			<item value="vectorArr"/>
 		</list>
 		<list key="replacehistory">
+			<item value="intInput"/>
+			<item value="buildButton"/>
+			<item value="setButton"/>
+			<item value="TextField"/>
+			<item value="JTextField"/>
 			<item value="vArr"/>
 		</list>
 	</section>

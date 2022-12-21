@@ -41,7 +41,7 @@ public class BuildView extends JFrame implements ActionListener{
 	   intInput = new JTextField(3);
 	   text1 = new Label("Enter Size: ");
 	   
-	   wordInput = new JTextField(5);
+	   wordInput = new JTextField(8);
 	   text2 = new Label("Look for: ");
 
 	   // Set up display panel

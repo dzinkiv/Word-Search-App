@@ -18,14 +18,14 @@ public class WordFind {
 		col = 0;
 		vArr = new ArrayList<>();
 		
-		vArr.add(new Vector(0,1));  //right
-		vArr.add(new Vector(1,1));  //down-right
-		vArr.add(new Vector(1,0));  //down
-		vArr.add(new Vector(1,-1)); //down-left
-		vArr.add(new Vector(0,-1)); //left
-		vArr.add(new Vector(-1,-1));//up-left
-		vArr.add(new Vector(-1,0)); //up
-		vArr.add(new Vector(-1,1)); //up-right
+		vArr.add(new Vector(0,1));
+		vArr.add(new Vector(1,1));
+		vArr.add(new Vector(1,0));
+		vArr.add(new Vector(1,-1));
+		vArr.add(new Vector(0,-1));
+		vArr.add(new Vector(-1,-1));
+		vArr.add(new Vector(-1,0));
+		vArr.add(new Vector(-1,1));
 	}
 	
 	public String search(String word) {
@@ -43,12 +43,13 @@ public class WordFind {
 						x = vectors.next().getX();
 						y = vectors.next().getY();
 						for(int k=1; k<word.length(); k++) {
-							if(vec_i+x<n && vec_i+x>=0 && vec_j+y<n && vec_j+y>=0 
+							if(vec_i+x<n && vec_i+x<0 && vec_j+y<n && vec_j+y<0 
 									&& word.charAt(k)==matrix[vec_i+=x][vec_j+=y]) 
 								check++;
+							System.out.println("gets after check");
 						}
-						if(check==word.length()) System.out.println("found! vector:(" + x + "," + y + "); ends at " + vec_i + "," + vec_i + ")");
 					}
+			        if(check==word.length()) System.out.println("found! vector:(" + vec_i + "," + vec_i + "); ends at ");
 				}
 			}
 		}
