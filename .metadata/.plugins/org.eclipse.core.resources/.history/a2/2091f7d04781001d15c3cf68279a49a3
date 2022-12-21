@@ -107,12 +107,11 @@ public class BuildView extends JFrame implements ActionListener{
 					   i++;
 				   }
 			   }
-			   //setSize(new Dimension(size*50, size*90));
+			   setSize(new Dimension(size*50, size*90));
 			   setVisible(true);
 			   add(searchDisplay, BorderLayout.SOUTH);
 			   w = new WordFind(data, size);
 			   new SearchView(data);
-			   pack();
 		   }
 		   catch (NumberFormatException ex){
 		   }

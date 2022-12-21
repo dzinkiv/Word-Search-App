@@ -83,7 +83,7 @@ public class BuildView extends JFrame implements ActionListener{
 			   for(int i=0; i<(size*size); i++) {
 				   gridCells[i] = new JTextField(1);
 				   gridCells[i].setHorizontalAlignment(JTextField.CENTER);
-				   gridCells[i].setFont(new Font("Serif", Font.PLAIN, 20));
+				   gridCells[i].setFont(new Font("Serif", Font.BOLD, 20));
 				   grid.add(gridCells[i]);
 			   }
 			   getContentPane().remove(setButton);
@@ -107,12 +107,11 @@ public class BuildView extends JFrame implements ActionListener{
 					   i++;
 				   }
 			   }
-			   //setSize(new Dimension(size*50, size*90));
+			   setSize(new Dimension(size*50, size*90));
 			   setVisible(true);
 			   add(searchDisplay, BorderLayout.SOUTH);
 			   w = new WordFind(data, size);
 			   new SearchView(data);
-			   pack();
 		   }
 		   catch (NumberFormatException ex){
 		   }

@@ -33,7 +33,7 @@ public class WordFind {
 		for(int i=0; i<n; i++){
 			for(int j=0; j<n; j++){
 				if(word.charAt(0)==matrix[i][j]){
-					locations[0] = (i*n) + j;
+					locations[0] = (i*n) + j+1;
 					int check = 1;
 					int x,y;
 					Iterator<Vector> vectors = vArr.iterator();
@@ -49,7 +49,7 @@ public class WordFind {
 							vec_j+=y;
 							if(vec_i<n && vec_i>=0 && vec_j<n && vec_j>=0 && word.charAt(k)==matrix[vec_i][vec_j]) {
 								check++;
-								locations[k] = (vec_i*n) + vec_j;
+								locations[k] = (vec_i*n) + vec_j+1;
 							}
 							else k=word.length();
 						}

@@ -28,36 +28,41 @@ public class WordFind {
 		vArr.add(new Vector(-1,1)); //up-right
 	}
 	
-	public int[] search(String word) {
-		int[] locations = new int[word.length()];
+	public String search(String word) {
 		for(int i=0; i<n; i++){
 			for(int j=0; j<n; j++){
 				if(word.charAt(0)==matrix[i][j]){
-					locations[0] = (i*n) + j;
+					System.out.println("Start at ("+i+","+j+")");
 					int check = 1;
 					int x,y;
+					int vec_i = i;
+					int vec_j = j;
 					Iterator<Vector> vectors = vArr.iterator();
 			        while(vectors.hasNext() && check<word.length()) {
-						int vec_i = i;
-						int vec_j = j;
 			        	check = 1;
 			        	Vector v = vectors.next();
 						x = v.getX();
 						y = v.getY();
+						System.out.println("vector ("+x+","+y+")");
 						for(int k=1; k<word.length(); k++) {
 							vec_i+=x;
 							vec_j+=y;
-							if(vec_i<n && vec_i>=0 && vec_j<n && vec_j>=0 && word.charAt(k)==matrix[vec_i][vec_j]) {
+							System.out.println("vec_i: " + vec_i + ", vec_j: " + vec_j + 
+									", word.charAt(k): " + word.charAt(k));
+							if(vec_i<n && vec_i>=0 && vec_j<n && vec_j>=0 && word.charAt(k)==matrix[vec_i][vec_j]) { 
 								check++;
-								locations[k] = (vec_i*n) + vec_j;
+								System.out.println("check = "+check);
 							}
 							else k=word.length();
 						}
-						if(check==word.length()) return locations;
+						if(check==word.length()) System.out.println("found! vector:(" + x + "," + y + "); ends at " + vec_i + "," + vec_i + ")");
 					}
 				}
 			}
 		}
-		return null;
+
+		
+		String info = "";
+		return info;
 	}
 }
