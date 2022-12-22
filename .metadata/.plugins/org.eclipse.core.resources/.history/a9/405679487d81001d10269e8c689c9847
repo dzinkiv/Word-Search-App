@@ -1,0 +1,29 @@
+package wordsearch;
+import javax.swing.*;
+
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		//GUIwindow window = new ();
+		new BuildView();
+//		
+//	    System.out.println("Enter size of martix: ");
+//	    Scanner scan = new Scanner(System.in);
+//	    int n = scan.nextInt();
+//	    
+//		WordFind w = new WordFind(n);
+//		
+//		System.out.println("Enter martix:");
+//		scan.nextLine();
+//		for(int i=0; i<n; i++) {
+//			w.createMatrix(scan.nextLine());
+//		}
+//		System.out.println("Find word: ");
+//		String word = scan.nextLine();
+//		w.search(word);
+		
+	}
+
+}

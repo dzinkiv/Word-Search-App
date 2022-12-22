@@ -96,6 +96,11 @@ public class BuildView extends JFrame implements ActionListener{
    
    @Override
    public void actionPerformed(ActionEvent e) {
+       JComboBox cb = (JComboBox) e.getSource();
+       String gridSize = (String) cb.getSelectedItem();
+       size = Arrays.asList(sizeList).indexOf(gridSize);
+       updateGrid(size+3);
+
 //	   if(e.getSource()==setButton) {
 //		   size = Integer.parseInt(intInput.getText());
 //		   grid = new Panel(new GridLayout(size, size));
@@ -141,12 +146,6 @@ public class BuildView extends JFrame implements ActionListener{
 		   if(locations!=null)
 			   for(int i=0; i<wordInput.getText().length(); i++)
 				   gridCells[locations[i]].setBackground(new Color(0x7FD0F0));
-	   }
-	   else {
-	       JComboBox cb = (JComboBox) e.getSource();
-	       String gridSize = (String) cb.getSelectedItem();
-	       size = Arrays.asList(sizeList).indexOf(gridSize);
-	       updateGrid(size+3);
 	   }
    }
 }

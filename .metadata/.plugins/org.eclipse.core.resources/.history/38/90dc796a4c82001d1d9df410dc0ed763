@@ -41,7 +41,7 @@ public class BuildView extends JFrame implements ActionListener{
 	   intInput = new JTextField(3);
 	   text1 = new Label("Select Size: ");
 	   
-	   sizeList = new String[]{"3x3", "4x4", "5x5", "6x6", "7x7", "8x8", "9x9", "10x10", "11x11", "12x12", "13x13", "14x14", "15x15", "16x16", "17x17", "18x18", "19x19", "20x20"};
+	   sizeList = new String[]{"3x3", "4x4", "5x5", "6x6", "7x7", "8x8", "9x9", "10x10", "11x11", "12x12", "13x13x", "14x14", "15x15", "16x16", "17x17", "18x18", "19x19", "20x20"};
        gridSize = new JComboBox<>(sizeList);
        gridSize.addActionListener(this);
 	   
@@ -96,6 +96,11 @@ public class BuildView extends JFrame implements ActionListener{
    
    @Override
    public void actionPerformed(ActionEvent e) {
+       JComboBox cb = (JComboBox) e.getSource();
+       String gridSize = (String) cb.getSelectedItem();
+       size = Arrays.asList(sizeList).indexOf(gridSize);
+       updateGrid(size);
+
 //	   if(e.getSource()==setButton) {
 //		   size = Integer.parseInt(intInput.getText());
 //		   grid = new Panel(new GridLayout(size, size));
@@ -141,12 +146,6 @@ public class BuildView extends JFrame implements ActionListener{
 		   if(locations!=null)
 			   for(int i=0; i<wordInput.getText().length(); i++)
 				   gridCells[locations[i]].setBackground(new Color(0x7FD0F0));
-	   }
-	   else {
-	       JComboBox cb = (JComboBox) e.getSource();
-	       String gridSize = (String) cb.getSelectedItem();
-	       size = Arrays.asList(sizeList).indexOf(gridSize);
-	       updateGrid(size+3);
 	   }
    }
 }
