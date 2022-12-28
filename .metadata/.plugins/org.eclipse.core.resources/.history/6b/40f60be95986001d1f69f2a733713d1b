@@ -36,12 +36,11 @@ public class BuildView extends JFrame implements ActionListener, ItemListener{
 	   menu.getAccessibleContext().setAccessibleDescription("The only menu in this program that has menu items");
 	   menuBar.add(menu);
 	   
-	   menuDemo1 = new JMenuItem("Canada 20x20");
+	   menuDemo1 = new JMenuItem("Canada 20x20", KeyEvent.VK_T);
 	   menuDemo1.addActionListener(this);
 	   menu.add(menuDemo1);
 	   
-	   menuDemo2 = new JMenuItem("Photography 19x19");
-	   menuDemo2.addActionListener(this);
+	   menuDemo2 = new JMenuItem("nothing", KeyEvent.VK_T);
 	   menu.add(menuDemo2);
 
 	   setJMenuBar(menuBar);
@@ -85,26 +84,6 @@ public class BuildView extends JFrame implements ActionListener, ItemListener{
    }
 
    
-   protected void updateGrid(int gridSize) {
-	   if(grid!=null) {
-		   grid.removeAll();
-		   getContentPane().remove(grid);
-	   }
-	   grid = new Panel(new GridLayout(gridSize, gridSize));
-	   gridCells = new JTextField[gridSize*gridSize];
-
-	   for(int i=0; i<(gridSize*gridSize); i++) {
-		   gridCells[i] = new JTextField(1);
-		   gridCells[i].setDocument(new JTextFieldLimit(1));
-		   gridCells[i].setHorizontalAlignment(JTextField.CENTER);
-		   gridCells[i].setFont(new Font("Serif", Font.PLAIN, 20));
-		   grid.add(gridCells[i]);
-	   }
-	   add(grid, BorderLayout.CENTER);
-	   panelDisplay.add(buildButton);
-	   setSize((size*50)+150, (size*50)+200);
-   }
-   
    protected void updateGrid(int gridSize, String input) {
 	   if(grid!=null) {
 		   grid.removeAll();
@@ -115,8 +94,9 @@ public class BuildView extends JFrame implements ActionListener, ItemListener{
 
 	   for(int i=0; i<(gridSize*gridSize); i++) {
 		   String letter = "";
-		   if(input!=null) letter = "" + input.charAt(i);
-		   gridCells[i] = new JTextField(letter, 1);
+		   if(input!=null) letter = "" + input.toLowerCase().charAt(i);
+		   gridCells[i] = new JTextField(letter);
+		   gridCells[i].setDocument(new JTextFieldLimit(1));
 		   gridCells[i].setHorizontalAlignment(JTextField.CENTER);
 		   gridCells[i].setFont(new Font("Serif", Font.PLAIN, 20));
 		   grid.add(gridCells[i]);
@@ -124,6 +104,7 @@ public class BuildView extends JFrame implements ActionListener, ItemListener{
 	   add(grid, BorderLayout.CENTER);
 	   panelDisplay.add(buildButton);
 	   setSize((size*50)+150, (size*50)+200);
+	   //pack();
    }
    
    public char[][] exctractInput(){
@@ -142,16 +123,10 @@ public class BuildView extends JFrame implements ActionListener, ItemListener{
 	   if(searchDisplay!=null) {
 		   getContentPane().remove(searchDisplay);
 	   }
+	   //setVisible(true);
 	   add(searchDisplay, BorderLayout.SOUTH);
 	   setSize((size*50)+150, (size*50)+240);
-   }
-   
-   public void constructGrid(String s) {
-	   size = (int) Math.sqrt(s.length());
-	   setBuiltView();
-	   updateGrid(size, s);
-	   data = exctractInput();
-	   w = new WordFind(data, size);
+	   //pack();
    }
    
    @Override
@@ -173,29 +148,29 @@ public class BuildView extends JFrame implements ActionListener, ItemListener{
 			   for(int i=0; i<wordInput.getText().length(); i++)
 				   gridCells[locations[i]].setBackground(new Color(0x7FD0F0));
 	   }
-	   if(e.getSource() == menuDemo1) {
-		   constructGrid(demoMatrix1);
-	   }
-	   if(e.getSource() == menuDemo2) {
-		   constructGrid(demoMatrix2);
-	   }
    }
    
    public void itemStateChanged(ItemEvent e) {
-	   Object source = e.getItem();
-	   JComboBox cb = (JComboBox) e.getSource();
+	   Object source = e.getItemSelectable();
+
+	   if(source == menuDemo1) {
+		   updateGrid((int) Math.sqrt(demoMatrix1.length()), demoMatrix1);
+		   data = exctractInput();
+		   w = new WordFind(data, size);
+		   setBuiltView();
+	   }
 	   
 	   if(searchDisplay!=null) {
 		   getContentPane().remove(searchDisplay);
 	   }
-	   
+	   JComboBox cb = (JComboBox) e.getSource();
 	   if (!cb.getSelectedItem().toString().equals("choose...")) {
 		   size = cb.getSelectedIndex() + 2;
-		   updateGrid(size);
+		   updateGrid(size, null);
 	   }
    }
    
-   private String demoMatrix1 =   "TPLOONIEAIROTCIVWDSH" // 20x20 taken from https://www.puzzles.ca/word-search/
+   private String demoMatrix1 =   "TPLOONIEAIROTCIVWDSH"
 				   		+ "ECRTUVANUNHSBCAHNNRP"
 				   		+ "UOBIRACNEIEOHEITOAEA"
 				   		+ "LELBNCISAITACTATVLVT"
@@ -215,36 +190,5 @@ public class BuildView extends JFrame implements ActionListener, ItemListener{
 				   		+ "SEKALIMYELLOWKNIFEDA"
 				   		+ "WONSAWPKCIWSNURBWENY"
 				   		+ "NORTHWESTTERRITORIES";
-   /*
-    * ALBERTA, BEARS, BEAVERS, BRITISH COLUMBIA, CARIBOU, 
-    * CHARLOTTETOWN, CURLING, EDMONTON, FORESTS, FREDERICTON, 
-    * GEESE, HALIFAX, HOCKEY, IQALUIT, LABRADOR, LAKES, LOONIE, 
-    * MANITOBA, MAPLE LEAF, MAPLE SYRUP, MOOSE, MOUNTAINS, 
-    * NEW BRUNSWICK, NEWFOUNDLAND, NORTHWEST TERRITORIES, 
-    * NOVA SCOTIA, NUNAVUT, OIL, ONTARIO, OTTAWA, PRAIRIES, 
-    * PRINCE EDWARD ISLAND, QUEBEC, RCMP, REGINA, SASKATCHEWAN, 
-    * SNOW, ST. JOHN'S, TOQUE, TORONTO, VICTORIA, WHITEHORSE, 
-    * WINNIPEG, YELLOWKNIFE, YUKON
-    */
-   
-   private String demoMatrix2 =   "CLOSEUPEDSFILTERXCI"
-						   		+ "ENGDAUAAMLEFLEFEARG"
-						   		+ "ENISWFRREAINRSOHLON"
-						   		+ "RLLONKEVEXRUGDCSLPI"
-						   		+ "SELAREILIMSFNEAIAPT"
-						   		+ "SBTORTLNIOAOIVLNRIH"
-						   		+ "CNOEIGGOPGICHELIANG"
-						   		+ "OMESMBEXTTHRCLEFPGI"
-						   		+ "NROLATEMAOETUONOEEL"
-						   		+ "TPOTMRHRETHROPGTCRP"
-						   		+ "RTHLEOUGTNNPTETONUA"
-						   		+ "ANRVOTOUISTIERHHATN"
-						   		+ "SIOIACHZTLEFRLLPLRN"
-						   		+ "TTESPSWOLLEBXPECAEI"
-						   		+ "AERUSOPXEREDNUMTBPN"
-						   		+ "HSALFBDREDNIFWEIVAG"
-						   		+ "REGRALNERANGEFINDER"
-						   		+ "EVITAGENOTEPANORAMA"
-						   		+ "EOHSTOHRPROCESSINGA";
 
 }

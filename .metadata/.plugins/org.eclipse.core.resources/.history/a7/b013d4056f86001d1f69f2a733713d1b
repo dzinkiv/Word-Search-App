@@ -36,12 +36,11 @@ public class BuildView extends JFrame implements ActionListener, ItemListener{
 	   menu.getAccessibleContext().setAccessibleDescription("The only menu in this program that has menu items");
 	   menuBar.add(menu);
 	   
-	   menuDemo1 = new JMenuItem("Canada 20x20");
+	   menuDemo1 = new JMenuItem("Canada 20x20", KeyEvent.VK_T);
 	   menuDemo1.addActionListener(this);
 	   menu.add(menuDemo1);
 	   
-	   menuDemo2 = new JMenuItem("Photography 19x19");
-	   menuDemo2.addActionListener(this);
+	   menuDemo2 = new JMenuItem("nothing", KeyEvent.VK_T);
 	   menu.add(menuDemo2);
 
 	   setJMenuBar(menuBar);
@@ -146,14 +145,6 @@ public class BuildView extends JFrame implements ActionListener, ItemListener{
 	   setSize((size*50)+150, (size*50)+240);
    }
    
-   public void constructGrid(String s) {
-	   size = (int) Math.sqrt(s.length());
-	   setBuiltView();
-	   updateGrid(size, s);
-	   data = exctractInput();
-	   w = new WordFind(data, size);
-   }
-   
    @Override
    public void actionPerformed(ActionEvent e) {
 	   if(e.getSource()==buildButton) {
@@ -174,10 +165,11 @@ public class BuildView extends JFrame implements ActionListener, ItemListener{
 				   gridCells[locations[i]].setBackground(new Color(0x7FD0F0));
 	   }
 	   if(e.getSource() == menuDemo1) {
-		   constructGrid(demoMatrix1);
-	   }
-	   if(e.getSource() == menuDemo2) {
-		   constructGrid(demoMatrix2);
+		   size = (int) Math.sqrt(demoMatrix1.length());
+		   setBuiltView();
+		   updateGrid(size, demoMatrix1);
+		   data = exctractInput();
+		   w = new WordFind(data, size);
 	   }
    }
    
@@ -227,24 +219,6 @@ public class BuildView extends JFrame implements ActionListener, ItemListener{
     * WINNIPEG, YELLOWKNIFE, YUKON
     */
    
-   private String demoMatrix2 =   "CLOSEUPEDSFILTERXCI"
-						   		+ "ENGDAUAAMLEFLEFEARG"
-						   		+ "ENISWFRREAINRSOHLON"
-						   		+ "RLLONKEVEXRUGDCSLPI"
-						   		+ "SELAREILIMSFNEAIAPT"
-						   		+ "SBTORTLNIOAOIVLNRIH"
-						   		+ "CNOEIGGOPGICHELIANG"
-						   		+ "OMESMBEXTTHRCLEFPGI"
-						   		+ "NROLATEMAOETUONOEEL"
-						   		+ "TPOTMRHRETHROPGTCRP"
-						   		+ "RTHLEOUGTNNPTETONUA"
-						   		+ "ANRVOTOUISTIERHHATN"
-						   		+ "SIOIACHZTLEFRLLPLRN"
-						   		+ "TTESPSWOLLEBXPECAEI"
-						   		+ "AERUSOPXEREDNUMTBPN"
-						   		+ "HSALFBDREDNIFWEIVAG"
-						   		+ "REGRALNERANGEFINDER"
-						   		+ "EVITAGENOTEPANORAMA"
-						   		+ "EOHSTOHRPROCESSINGA";
+   
 
 }

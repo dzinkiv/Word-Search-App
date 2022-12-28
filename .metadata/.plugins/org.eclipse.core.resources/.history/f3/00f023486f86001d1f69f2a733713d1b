@@ -41,7 +41,6 @@ public class BuildView extends JFrame implements ActionListener, ItemListener{
 	   menu.add(menuDemo1);
 	   
 	   menuDemo2 = new JMenuItem("Photography 19x19");
-	   menuDemo2.addActionListener(this);
 	   menu.add(menuDemo2);
 
 	   setJMenuBar(menuBar);
@@ -234,8 +233,7 @@ public class BuildView extends JFrame implements ActionListener, ItemListener{
 						   		+ "SELAREILIMSFNEAIAPT"
 						   		+ "SBTORTLNIOAOIVLNRIH"
 						   		+ "CNOEIGGOPGICHELIANG"
-						   		+ "OMESMBEXTTHRCLEFPGI"
-						   		+ "NROLATEMAOETUONOEEL"
+						   		+ "OMESMBEMAOETUONOEEL"
 						   		+ "TPOTMRHRETHROPGTCRP"
 						   		+ "RTHLEOUGTNNPTETONUA"
 						   		+ "ANRVOTOUISTIERHHATN"
