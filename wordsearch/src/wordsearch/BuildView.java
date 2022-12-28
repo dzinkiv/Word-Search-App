@@ -10,11 +10,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
  
-public class BuildView extends JFrame implements ActionListener{
+public class BuildView extends JFrame implements ActionListener, ItemListener{
    private JTextField[] gridCells;
-   private JTextField intInput, wordInput;
+   private JTextField wordInput;
    private Label text1, text2;
-   private JButton setButton, buildButton, searchButton;
+   private JButton buildButton, searchButton;
    private JComboBox gridSize;
    private int size;
    private Panel panelDisplay, grid, searchDisplay;
@@ -23,11 +23,6 @@ public class BuildView extends JFrame implements ActionListener{
    private String[] sizeList;
    
    public BuildView () {
-	   setButton = new JButton();
-	   setButton.setBounds(100,100,100,25);
-	   setButton.addActionListener(this);
-	   setButton.setText("Set");
-	   
 	   buildButton = new JButton();
 	   buildButton.setBounds(100,100,100,25);
 	   buildButton.addActionListener(this);
@@ -37,17 +32,11 @@ public class BuildView extends JFrame implements ActionListener{
 	   searchButton.setBounds(100,100,100,25);
 	   searchButton.addActionListener(this);
 	   searchButton.setText("Find");
-	   
-	   intInput = new JTextField(3);
-	   text1 = new Label("Select Size: ");
-	   
-	   sizeList = new String[]{"3x3", "4x4", "5x5", "6x6", "7x7", "8x8", "9x9", "10x10", "11x11", "12x12", "13x13", "14x14", "15x15", "16x16", "17x17", "18x18", "19x19", "20x20"};
+
+	   text1 = new Label("Select Size: ");	   
+	   sizeList = new String[]{"choose...", "3x3", "4x4", "5x5", "6x6", "7x7", "8x8", "9x9", "10x10", "11x11", "12x12", "13x13", "14x14", "15x15", "16x16", "17x17", "18x18", "19x19", "20x20"};
        gridSize = new JComboBox<>(sizeList);
-       gridSize.addActionListener(this);
-	   
-	   
-	   
-	   
+       gridSize.addItemListener(this);
 	   
 	   wordInput = new JTextField(5);
 	   text2 = new Label("Look for: ");
@@ -87,34 +76,14 @@ public class BuildView extends JFrame implements ActionListener{
 		   gridCells[i].setFont(new Font("Serif", Font.PLAIN, 20));
 		   grid.add(gridCells[i]);
 	   }
-	   getContentPane().remove(setButton);
-	   setButton.setVisible(false); 
 	   add(grid, BorderLayout.CENTER);
-	   panelDisplay.add(buildButton); //
-	   pack();
+	   panelDisplay.add(buildButton);
+	   setSize((size*50)+150, (size*50)+200);
+	   //pack();
    }
    
    @Override
    public void actionPerformed(ActionEvent e) {
-//	   if(e.getSource()==setButton) {
-//		   size = Integer.parseInt(intInput.getText());
-//		   grid = new Panel(new GridLayout(size, size));
-//		   gridCells = new JTextField[size*size];
-//		   
-//		   for(int i=0; i<(size*size); i++) {
-//			   gridCells[i] = new JTextField(1);
-//			   gridCells[i].setDocument(new JTextFieldLimit(1));
-//			   gridCells[i].setHorizontalAlignment(JTextField.CENTER);
-//			   gridCells[i].setFont(new Font("Serif", Font.PLAIN, 20));
-//			   grid.add(gridCells[i]);
-//		   }
-//		   getContentPane().remove(setButton);
-//		   setButton.setVisible(false); 
-//		   add(grid, BorderLayout.CENTER);
-//		   panelDisplay.add(buildButton); //
-//		   pack();
-//	   }
-	   
 	   if(e.getSource()==buildButton) {
 		   try{
 			   data = new char[size][size];
@@ -129,12 +98,13 @@ public class BuildView extends JFrame implements ActionListener{
 			   
 			   setVisible(true);
 			   add(searchDisplay, BorderLayout.SOUTH);
-			   pack();
+			   setSize((size*50)+150, (size*50)+240);
+			   //pack();
 		   }
 		   catch (NumberFormatException ex){
 		   }
 	   }
-	   if(e.getSource()==searchButton) {
+	   if (e.getSource()==searchButton) {
 		   for(int i=0; i<size*size; i++) 
 			   gridCells[i].setBackground(new Color(0xffffff));
 		   int[] locations = w.search(wordInput.getText().toLowerCase());
@@ -142,11 +112,17 @@ public class BuildView extends JFrame implements ActionListener{
 			   for(int i=0; i<wordInput.getText().length(); i++)
 				   gridCells[locations[i]].setBackground(new Color(0x7FD0F0));
 	   }
-	   else {
-	       JComboBox cb = (JComboBox) e.getSource();
-	       String gridSize = (String) cb.getSelectedItem();
-	       size = Arrays.asList(sizeList).indexOf(gridSize);
-	       updateGrid(size+3);
+   }
+   
+   public void itemStateChanged(ItemEvent e) {
+	   if(searchDisplay!=null) {
+		   getContentPane().remove(searchDisplay);
+	   }
+	   JComboBox cb = (JComboBox) e.getSource();
+	   if (!cb.getSelectedItem().toString().equals("choose...")) {
+		   size = cb.getSelectedIndex() + 2;
+		   updateGrid(size);
 	   }
    }
+   
 }

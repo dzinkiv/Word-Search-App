@@ -1,0 +1,126 @@
+package wordsearch;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Arrays;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+ 
+public class BuildView extends JFrame implements ActionListener, ItemListener{
+   private JTextField[] gridCells;
+   private JTextField wordInput;
+   private Label text1, text2;
+   private JButton buildButton, searchButton;
+   private JComboBox gridSize;
+   private int size;
+   private Panel panelDisplay, grid, searchDisplay;
+   private WordFind w;
+   private char[][] data;
+   private String[] sizeList;
+   
+   public BuildView () {
+	   buildButton = new JButton();
+	   buildButton.setBounds(100,100,100,25);
+	   buildButton.addActionListener(this);
+	   buildButton.setText("Build");
+	   
+	   searchButton = new JButton();
+	   searchButton.setBounds(100,100,100,25);
+	   searchButton.addActionListener(this);
+	   searchButton.setText("Find");
+
+	   text1 = new Label("Select Size: ");	   
+	   sizeList = new String[]{"choose...", "3x3", "4x4", "5x5", "6x6", "7x7", "8x8", "9x9", "10x10", "11x11", "12x12", "13x13", "14x14", "15x15", "16x16", "17x17", "18x18", "19x19", "20x20"};
+       gridSize = new JComboBox<>(sizeList);
+       gridSize.addItemListener(this);
+	   
+	   wordInput = new JTextField(5);
+	   text2 = new Label("Look for: ");
+
+	   panelDisplay = new Panel(new FlowLayout());
+	   panelDisplay.add(text1);
+	   panelDisplay.add(gridSize);
+	   //panelDisplay.add(intInput);
+	   //panelDisplay.add(setButton);
+	   
+	   searchDisplay = new Panel(new FlowLayout());
+	   searchDisplay.add(text2);
+	   searchDisplay.add(wordInput);
+	   searchDisplay.add(searchButton);
+	   
+	   setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	   setLayout(new BorderLayout());
+	   add(panelDisplay, BorderLayout.NORTH);
+	   setTitle("Word Search Solver (WSS)");
+	   setSize(200, 200);
+	   setVisible(true);
+   }
+
+   
+   protected void updateGrid(int gridSize) {
+	   if(grid!=null) {
+		   grid.removeAll();
+		   getContentPane().remove(grid);
+	   }
+	   grid = new Panel(new GridLayout(gridSize, gridSize));
+	   gridCells = new JTextField[gridSize*gridSize];
+	   
+	   for(int i=0; i<(gridSize*gridSize); i++) {
+		   gridCells[i] = new JTextField(1);
+		   gridCells[i].setDocument(new JTextFieldLimit(1));
+		   gridCells[i].setHorizontalAlignment(JTextField.CENTER);
+		   gridCells[i].setFont(new Font("Serif", Font.PLAIN, 20));
+		   grid.add(gridCells[i]);
+	   }
+	   add(grid, BorderLayout.CENTER);
+	   panelDisplay.add(buildButton); //
+	   pack();
+   }
+   
+   @Override
+   public void actionPerformed(ActionEvent e) {
+	   if(e.getSource()==buildButton) {
+		   try{
+			   data = new char[size][size];
+			   for(int k=0, i=0, j=0; k<size*size && i<size; k++, j++) {
+				   data[i][j] = gridCells[k].getText().toLowerCase().charAt(0);
+				   if(j==size-1) {
+					   j=-1;
+					   i++;
+				   }
+			   }
+			   w = new WordFind(data, size);
+			   
+			   setVisible(true);
+			   add(searchDisplay, BorderLayout.SOUTH);
+			   pack();
+		   }
+		   catch (NumberFormatException ex){
+		   }
+	   }
+	   if (e.getSource()==searchButton) {
+		   for(int i=0; i<size*size; i++) 
+			   gridCells[i].setBackground(new Color(0xffffff));
+		   int[] locations = w.search(wordInput.getText().toLowerCase());
+		   if(locations!=null)
+			   for(int i=0; i<wordInput.getText().length(); i++)
+				   gridCells[locations[i]].setBackground(new Color(0x7FD0F0));
+	   }
+   }
+   
+   public void itemStateChanged(ItemEvent e) {
+	   if(searchDisplay!=null) {
+		   getContentPane().remove(searchDisplay);
+	   }
+	   JComboBox cb = (JComboBox) e.getSource();
+	   if (!cb.getSelectedItem().toString().equals("choose...")) {
+		   size = cb.getSelectedIndex() + 2;
+		   updateGrid(size);
+	   }
+   }
+   
+}
